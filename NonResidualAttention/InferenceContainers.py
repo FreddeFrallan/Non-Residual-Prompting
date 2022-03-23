@@ -1,5 +1,5 @@
-from NonResidualAttention import CustomSearchFunction, PromptModelSetup
 from transformers.models.gpt2.modeling_tf_gpt2 import shape_list
+from NonResidualAttention import CustomSearchFunction
 import transformers.generation_tf_utils as GenUtils
 import tensorflow as tf
 import numpy as np
@@ -15,7 +15,6 @@ class HFDecodingContainer(GenUtils.TFGenerationMixin):
         self.numPrompts = len(promptIDs)
         self.fullBatchSize = self.numBeams * self.numPrompts
         self.promptBlockMask = np.ones((self.fullBatchSize, 1))
-        # self.promptBlockMask = np.zeros((self.fullBatchSize, 1))
 
         self.past, self.promptMask, self.maxPromptLen = self.calculatePromptPast(promptIDs, self.numPrompts)
         self.config = self.model.config

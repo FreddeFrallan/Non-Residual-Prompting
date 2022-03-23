@@ -131,14 +131,6 @@ class SequenceState:
         if (self.finished):
             return [], []
 
-        # for state in self.wordStates:
-        #     if (state.canBeIncluded):
-        #         state.checkIfIncluded(seqIDs[-1])
-        #
-        # for state in self.wordStates:
-        #     if (state.isIncluded == False):
-        #         state.updateState(seqIDs[-1])
-
         hasStartedWords = any([state.hasStarted() for state in self.wordStates])
         hasCanBeIncluded = any([state.canBeIncluded for state in self.wordStates])
 

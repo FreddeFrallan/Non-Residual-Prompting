@@ -22,11 +22,11 @@ class NonResidualGPT(tf.keras.Model):
         if (initModelParameters):
             self.initParamaters()
 
-    def createModel(self, modelData, preTrainedPath):
+    def createModel(self, modelBase, preTrainedPath):
         if (preTrainedPath is not None):
             self.model = transformers.TFAutoModelForCausalLM.from_pretrained(preTrainedPath)
         else:
-            self.model = transformers.TFAutoModelForCausalLM.from_pretrained(modelData)
+            self.model = transformers.TFAutoModelForCausalLM.from_pretrained(modelBase)
         self.totalNumLayers = self.model.config.n_layer
         self.model.config.output_attentions = True
 
