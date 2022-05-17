@@ -1,0 +1,8 @@
+transformers
+numpy
+tensorflow
+spacy
+tqdm
+datasets
+lemminflect
+nltk
