@@ -8,8 +8,8 @@ echo "Input file: ${INPUT_FILE}"
 DATASET="common_gen"
 # DATASET="c2gen"
 
-# PPL_MODEL_NAME="gpt2-xl"
-PPL_MODEL_NAME="gpt2"
+PPL_MODEL_NAME="gpt2-xl"
+# PPL_MODEL_NAME="gpt2"
 
 # Increase this for faster evaluation if you have access to a large GPU
 PPL_BATCH_SIZE=8
