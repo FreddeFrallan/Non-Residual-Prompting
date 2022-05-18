@@ -32,7 +32,7 @@
 
 ### Installing
 
-**TODO**: Download model?
+**TODO**: Download model and fix a proper readme.
 
 Install the required python packages:
 
