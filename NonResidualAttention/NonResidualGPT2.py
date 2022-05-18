@@ -57,72 +57,6 @@ class NonResidualGPT(tf.keras.Model):
 
         inputs = input_processing(func=self.oldCall, config=self.config, input_ids=input_ids, past=past,
                                   attention_mask=attention_mask, token_type_ids=token_type_ids,
-                                  position_ids=position_ids,
-                                  head_mask=head_mask, inputs_embeds=inputs_embeds, use_cache=use_cache,
-                                  output_attentions=output_attentions,
-                                  output_hidden_states=output_hidden_states, return_dict=return_dict, training=training,
-                                  kwargs_call=kwargs,
-                                  )
-
-        if inputs["input_ids"] is not None and inputs["inputs_embeds"] is not None:
-            raise ValueError("You cannot specify both input_ids and inputs_embeds at the same time")
-        elif inputs["input_ids"] is not None:
-            input_shape = shape_list(inputs["input_ids"])
-            inputs["input_ids"] = tf.reshape(inputs["input_ids"], [-1, input_shape[-1]])
-        elif inputs["inputs_embeds"] is not None:
-            input_shape = shape_list(inputs["inputs_embeds"])[:-1]
-        else:
-            raise ValueError("You have to specify either input_ids or inputs_embeds")
-
-        if inputs["past"] is None:
-            inputs["past"] = [None] * self.totalNumLayers
-
-        # ***** Custom Hack *****
-        # ***** This had to be hacked, as we want to input a non-uniform mask.
-        if inputs["attention_mask"] is not None:
-            inputs["attention_mask"] = tf.cast(inputs["attention_mask"], tf.float32)
-
-        # ***** Custom Hack *****
-        # ***** This had to be hacked, allowing us to NOT modify the positions of the IDs, although we have a past
-        if inputs["position_ids"] is None:
-            inputs["position_ids"] = tf.expand_dims(tf.range(0, input_shape[-1]), axis=0)
-
-        if inputs["head_mask"] is not None:
-            raise NotImplementedError
-        else:
-            inputs["head_mask"] = [None] * self.totalNumLayers
-
-        inputs["position_ids"] = tf.reshape(inputs["position_ids"], [-1, shape_list(inputs["position_ids"])[-1]])
-
-        if inputs["inputs_embeds"] is None:
-            inputs["inputs_embeds"] = self.wte(inputs["input_ids"], mode="embedding")
-
-        position_embeds = tf.gather(self.wpe, inputs["position_ids"])
-
-        if inputs["token_type_ids"] is not None:
-            inputs["token_type_ids"] = tf.reshape(
-                inputs["token_type_ids"], [-1, shape_list(inputs["token_type_ids"])[-1]]
-            )
-            token_type_embeds = self.wte(inputs["token_type_ids"], mode="embedding")
-        else:
-            token_type_embeds = tf.constant(0.0)
-
-        position_embeds = tf.cast(position_embeds, dtype=inputs["inputs_embeds"].dtype)
-        token_type_embeds = tf.cast(token_type_embeds, dtype=inputs["inputs_embeds"].dtype)
-        hidden_states = inputs["inputs_embeds"] + position_embeds + token_type_embeds
-        hidden_states = self.drop(hidden_states, training=inputs["training"])
-
-        output_shape = input_shape + [shape_list(hidden_states)[-1]]
-
-        return hidden_states, inputs, output_shape, input_shape
-
-    def customCallNoCacheInnerPrepData(self, input_ids=None, past=None, attention_mask=None, token_type_ids=None,
-                                       position_ids=None, head_mask=None, inputs_embeds=None, use_cache=None,
-                                       output_attentions=None, output_hidden_states=None, return_dict=None,
-                                       training=False, **kwargs):
-
-        inputs = input_processing(func=self.oldCall, config=self.config, input_ids=input_ids, past=past,
-                                  attention_mask=attention_mask, token_type_ids=token_type_ids,
                                   position_ids=position_ids, head_mask=head_mask, inputs_embeds=inputs_embeds,
                                   use_cache=use_cache, output_attentions=output_attentions,
                                   output_hidden_states=output_hidden_states, return_dict=return_dict, training=training,
@@ -178,7 +112,9 @@ class NonResidualGPT(tf.keras.Model):
         hidden_states = self.drop(hidden_states, training=inputs["training"])
 
         output_shape = input_shape + [shape_list(hidden_states)[-1]]
+
         return hidden_states, inputs, input_shape, output_shape
+        # return hidden_states, inputs, output_shape, input_shape
 
     def doubleDataPrepCall(self, outerFuncID, innerPrepFunc, input_ids=None, past=None,
                            attention_mask=None, token_type_ids=None, position_ids=None, head_mask=None,
@@ -297,14 +233,17 @@ class NonResidualGPT(tf.keras.Model):
         customPast = self.createCombinedPast(normalPast, promptPast)
         inData = {'input_ids': inputIDs, 'use_cache': False, 'past': customPast, 'attention_mask': promptAtt,
                   'output_attentions': True, 'position_ids': posIDs}
-        hidden_states, inputs, output_shape, input_shape = self.customCallNoCacheInnerPrepData(inData)
+        # hidden_states, inputs, output_shape, input_shape = self.customCallNoCacheInnerPrepData(inData)
+        # Fredrik's Legacy: order of input_shape & output_shape mustn't be unswitched
+        hidden_states, inputs, output_shape, input_shape = self.customCallDataPrep(inData)
 
         return self.customCallNoCache(hidden_states, inputs, output_shape,
                                       input_shape), inputs, output_shape, input_shape
 
     def generateNormalTextPast(self, inputIDs, posIDs=None):
         # Start by initializing and preparing the data
-        hidden_states, inputs, output_shape, input_shape = self.doubleDataPrepCall(self.oldCall,
+        # hidden_states, inputs, output_shape, input_shape = self.doubleDataPrepCall(self.oldCall,
+        hidden_states, inputs, input_shape, output_shape = self.doubleDataPrepCall(self.oldCall,
                                                                                    self.customCallDataPrep,
                                                                                    input_ids=inputIDs, use_cache=True,
                                                                                    output_attentions=True,
