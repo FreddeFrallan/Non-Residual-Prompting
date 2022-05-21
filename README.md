@@ -50,3 +50,18 @@ This file got some settings that can be configured:
 - **CONTEXT**: The custom context that was used when generating the texts. For example, when generating with no context (common_gen) the model may need an initial string to condition the generation on, like 'The'.
 - **SENTENCE_LEVEL**: Leave as `--sentence_level` for sentence-level evaluation, or empty string for Free Text evaluation.
 
+### Contextualized CommonGen Dataset (C<sup>2</sup>Gen)
+In this paper we also introduce a new dataset that is based on the CommonGen dataset. In the CommonGen dataset
+the objective of the task is to generate text that includes a given set of target words and that adheres
+to common sense. These examples are however all formulated without any context, where we believe that many application 
+areas need to take context into account. 
+
+Therefore, to complement CommonGen, we provide an extended test set of CommonGen, called Contextualized CommonGen Dataset (C<sup>2</sup>Gen)
+where a context is provided for each set of target words. The task is therefore reformulated to both
+generate commonsensical text which includes the given words, and also have the generated text adhere
+to the given context as shown on the Figure below.
+
+<img src="Images/img.png" height="300" />
+
+
+The dataset is uploaded on HuggingFace, so you can directly inspect the dataset here and incorporate it into your framework: [AI-Nordics/C2Gen](https://huggingface.co/datasets/AI-Nordics/C2Gen).
