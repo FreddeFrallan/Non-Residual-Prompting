@@ -67,7 +67,7 @@ A short video summary of the work can be found on [Youtube](https://youtu.be/s_r
 Controlling the generative process for large causal language models is at large an unsolved problem. In our approach, we try to move towards a more steerable generation process by enabling high-level prompt instructions at arbitrary time steps.
 
 We introduce a separate language model for the prompt instructions, that generate positionally invariant hidden states. This prompt model is then used to steer the generative model.
-Using non-redisual attention, we keep track of two streams of information in the original generative model. Allow us to steer the generative model without leaving any disruptive footprints in its hidden states.
+Using non-redisual attention, we keep track of two streams of information in the original generative model. This allows us to steer the text generation without leaving any disruptive footprints in the hidden states.
 
 <!-- GETTING STARTED -->
 ## Getting Started
