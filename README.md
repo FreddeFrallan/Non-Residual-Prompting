@@ -128,7 +128,7 @@ to the given context as shown on the Figure below.
 <img src="Images/img.png" height="300" />
 
 
-The dataset is uploaded on HuggingFace, so you can directly inspect the dataset here and incorporate it into your framework: [AI-Nordics/C2Gen](https://huggingface.co/datasets/AI-Nordics/C2Gen).
+The dataset is uploaded on HuggingFace, so you can directly inspect the dataset here and incorporate it into your framework: [Non-Residual-Prompting/C2Gen](https://huggingface.co/datasets/Non-Residual-Prompting/C2Gen).
 
 <!-- CONTRIBUTING -->
 ## Contributing
