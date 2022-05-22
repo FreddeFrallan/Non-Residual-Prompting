@@ -5,13 +5,11 @@ import transformers
 
 def loadPaperGPT2LargeModel():
     maxSeqLen, maxPromptLen = 32, 128
+
     base = 'gpt2-large'
-    # promptModelPath = 'PaperModel-GPT2Large-PromptModel'
-    # promptModelPath = 'Non-Residual-Prompting/GPT2-Large'
-    clmBasePath = 'PaperModel-GPT2Large-CLM'
-    promptModelBasePath = 'PaperModel-GPT2Large-PromptModel'
-    postWeightsPath = 'PaperModel-GPT2Large-PostWeights'
-    # postWeightsPath = None
+    clmBasePath = 'gpt2-large'
+    promptModelBasePath = 'Non-Residual-Prompting/GPT2-Large'
+    postWeightsPath = 'Non-Residual-Prompting/GPT2-Large-Post-Transformation'
 
     tokenizer = transformers.AutoTokenizer.from_pretrained(base)
     model = PromptModelSetup.PromptModelSetup(base, CLMWeightsPath=clmBasePath,

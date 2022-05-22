@@ -1,11 +1,14 @@
 from transformers.models.gpt2.modeling_tf_gpt2 import shape_list
 import tensorflow as tf
 
+DEBUG_COUNTER = 0
+
 
 class NonResidualAttention:
 
-    def __init__(self, attnLayer, **kwargs):
+    def __init__(self, attnLayer, debugName='Standard', **kwargs):
         super().__init__(**kwargs)
+        self.debugName = debugName
         self.originialLayer = attnLayer
         self._overrideFunctionalityInOriginalLayer(attnLayer)
 
@@ -99,4 +102,6 @@ class NonResidualAttention:
 def convertCausualAttentionLayerIntoNonResidualAttention(attnLayer):
     # This converts the original, normal causal attention layer, by overriding its call function
     # The old call functionality can still be achieved be setting use_cache=False
-    NonResidualAttention(attnLayer)
+    global DEBUG_COUNTER
+    NonResidualAttention(attnLayer, debugName="Debug-{}".format(DEBUG_COUNTER))
+    DEBUG_COUNTER += 1

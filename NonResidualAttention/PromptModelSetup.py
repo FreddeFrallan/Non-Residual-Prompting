@@ -1,18 +1,6 @@
 from NonResidualAttention import NonResidualGPT2
+from PostTransformation import PostTransformationModel, PostTransformConfig
 import tensorflow as tf
-
-
-class PositionalInvariantTransformation(tf.keras.Model):
-
-    def __init__(self, config, *args, **kwargs):
-        super().__init__(name='Post-Past-Constant', *args, **kwargs)
-        postShape = (config.num_hidden_layers, 2, 1, config.n_head, 1, 64)
-        self.postPastWeight = self.add_weight('Post-Past', postShape, tf.float32,
-                                              tf.keras.initializers.Zeros(),
-                                              trainable=True)
-
-    def call(self, past, training=None, mask=None):
-        return past + self.postPastWeight
 
 
 class PromptModelSetup(tf.keras.Model):
@@ -21,14 +9,22 @@ class PromptModelSetup(tf.keras.Model):
                  **kwargs):
         super().__init__(*args, **kwargs)
 
+        self.createModels(modelBase, CLMWeightsPath, promptModelWeightsPath)
+        self.setupPostTransformation(postWeightsPath)
+
+    def createModels(self, modelBase, CLMWeightsPath, promptModelWeightsPath):
         self.CLM = NonResidualGPT2.NonResidualGPT(modelBase, CLMWeightsPath)
         self.promptModel = NonResidualGPT2.NonResidualGPT(modelBase, promptModelWeightsPath)
         self.config = self.CLM.config
 
-        self.postTransformation = PositionalInvariantTransformation(self.config)
-        if (postWeightsPath is not None):
+    def setupPostTransformation(self, postWeightsPath):
+        if (postWeightsPath == None):
+            postConfig = PostTransformConfig.PostTransformConfig(self.config.num_hidden_layers, self.config.n_head)
+            self.postTransformation = PostTransformationModel.PositionalInvariantTransformation(postConfig)
+        else:
             print("Loading Post weights:", postWeightsPath)
-            self.postTransformation.load_weights(postWeightsPath).expect_partial()
+            self.postTransformation = PostTransformationModel.PositionalInvariantTransformation.from_pretrained(
+                postWeightsPath)
 
     def get_output_embeddings(self):
         return self.CLM.model.get_output_embeddings()
