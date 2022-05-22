@@ -59,24 +59,15 @@
 
 ![Alt text](Images/overview.png?raw=true "Title")
 
-The introduction of immensely large causal
-language models (CLMs) has rejuvenated the
-interest in open-ended text generation. However,
-controlling the generative process for
-these Transformer-based models is at large
-an unsolved problem. With Our algorithm we try to solve two different problems:
-- The influence of a prompt decreases with increasing distance,
-reducing its ability to steer the text generation (see the left upper corner).
-- Since hidden states in a CLM depend on states at previous time
-steps, previous prompt instructions may leak into future prediction (see the right upper corner).
+This is the official code for the paper [Fine-Grained Controllable Text Generation Using Non-Residual Prompting](https://aclanthology.org/2022.acl-long.471/). \
+The paper was accepted at ACL-2022, and official reviews and responses can be found at [ACL Reviews.pdf](https://github.com/FreddeFrallan/Non-Residual-Prompting/blob/master/ACL%20Reviews.pdf) \
+A short video summary of the work can be found on [Youtube](https://youtu.be/s_rGz3P34KY).
 
-Our solutions is as well two folded:
-- We add a separate language model for prompt instructions that
-generates positionally invariant hidden states that the generative model
-can attend to (see the left bottom).
-- By dividing the generative model into a textual and a non-residual stream, and
-keeping the textual stream unaffected by the prompt model, we enable multiple
-prompt instructions without degenerating the generative model’s hidden states (see the right bottom).
+
+Controlling the generative process for large causal language models is at large an unsolved problem. In our approach, we try to move towards a more steerable generation process by enabling high-level prompt instructions at arbitrary time steps.
+
+We introduce a separate language model for the prompt instructions, that generate positionally invariant hidden states. This prompt model is then used to steer the generative model.
+Using non-redisual attention, we keep track of two streams of information in the original generative model. Allow us to steer the generative model without leaving any disruptive footprints in its hidden states.
 
 <!-- GETTING STARTED -->
 ## Getting Started
