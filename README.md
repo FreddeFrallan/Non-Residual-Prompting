@@ -90,6 +90,32 @@ using `./inference.sh`. It contains some arguments:
 
 *The trained model used in the paper will be downloaded automatically from [HuggingFace](https://huggingface.co/Non-Residual-Prompting).*
 
+Here are some example outputs, showing the target words used, followed by the generated texts:
+
+```
+------------ ['magazine', 'read', 'plenty']
+The magazine was read by plenty of people, but it wasn't a hit.
+
+"I don't know why," he said. "It just didn't
+```
+
+```
+------------ ['Sweden', 'summer', 'boat', 'water']
+The boat was used to transport water for the Summer Olympics in Stockholm, Sweden during the 1980s and 1990s.
+
+It is believed to have been built by
+```
+
+```
+------------ ['dog', 'breed', 'brown', 'camping', 'park']
+The park is open to the public for camping, hiking and dog-sledding at Brown's Dog Park. The park also has a brown bear breeding program that
+```
+
+```
+------------ ['king', 'queen', 'wedding', 'castle', 'knight']
+The king and queen were at the castle for a wedding when they heard of their son's death. The King and Queen went to see him, but he was not
+```
+
 ### Evaluation 
 To evaluate texts, use `./evaluate.sh` that takes an input file with a json list of texts as a positional argument.
 
