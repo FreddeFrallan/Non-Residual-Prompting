@@ -24,11 +24,11 @@
 <p align="center">
   <h1 align="center">Fine-grained controllable text generation via Non-Residual Prompting</h1>
 <p align="center">
+    <a href="https://aclanthology.org/2022.acl-long.471/">Publish</a>
+    ·
     <a href="https://huggingface.co/Non-Residual-Prompting">Pre-trained Models </a>
     ·
     <a href="https://huggingface.co/datasets/Non-Residual-Prompting/C2Gen">Dataset</a>
-    ·
-    <a href="https://github.com/FreddeFrallan/Non-Residual-Prompting/issues">Report Bug</a>
   </p>
 </p>
 
@@ -85,17 +85,9 @@ prompt instructions without degenerating the generative model’s hidden states 
 
 
 ### Requirements 
-While it is possible that other versions works equally fine, we have worked with the following:
-* transformers 
-* numpy
-* tensorflow
-* spacy
-* tqdm
-* datasets
-* lemminflect
-* nltk
+The packages can be found in the requirements file. The only strong requirement is to use the version  4.8.1 from the transformer package.
 
-`pip install -r /path/to/requirements.txt`
+`pip install -r requirements.txt`
 ## Usage
 
 
