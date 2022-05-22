@@ -16,7 +16,7 @@ GENERATE_LENGTH=32
 NUM_BEAMS=4
 
 
-cmd="python InferenceExample.py
+cmd="python3 InferenceExample.py
       --target_words $TARGET_WORDS
       --context $CONTEXT
       --sentence_length $SENTENCE_LENGTH
