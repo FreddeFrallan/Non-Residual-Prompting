@@ -44,10 +44,8 @@
     </li>
     <li><a href="#usage">Usage</a></li>
         <ul>
-        <li><a href="#download-the-pretrained-model">Download the pretrained model</a></li>
-      </ul>
-        <ul>
         <li><a href="#inference">Inference</a></li>
+        <li><a href="#evaluation">Evaluation</a></li>
       </ul>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -90,12 +88,18 @@ The packages can be found in the requirements file. The only strong requirement 
 `pip install -r requirements.txt`
 ## Usage
 
-
-### Download the pretrained model
-
-**TODO**: Download model and fix a proper readme.
-
 ### Inference 
+After installing the required packages, generating text is easily done by 
+using `./inference.sh`. It contains some arguments:
+- **TARGET_WORDS**: The space-separated words to be included in the generated text.
+- **CONTEXT**: The context that the model continues to generate from.
+- **SENTENCE_LENGTH**: The target sentence length to instruct the model with
+- **GENERATE_LENGTH**: The number of tokens in the resulting text
+- **NUM_BEAMS**: The number of beams used within beam search
+
+*The trained model used in the paper will be downloaded automatically from [HuggingFace](https://huggingface.co/Non-Residual-Prompting).*
+
+### Evaluation 
 To evaluate texts, use `./evaluate.sh` that takes an input file with a json list of texts as a positional argument.
 
 *Note that the order of the texts within this list must correspond to the order of samples in the evaluation dataset.*
