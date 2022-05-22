@@ -37,10 +37,10 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    assert len(args.target_words) > 0
-    assert args.sentence_length > 0
-    assert args.generate_length > 0
-    assert args.num_beams > 0
+    assert len(args.target_words) > 0, "Add a few --target_words!"
+    assert args.sentence_length > 0, "--sentence_length must be strictly positive"
+    assert args.generate_length > 0, "--generate_length must be strictly positive"
+    assert args.num_beams > 0, "--num_beams must be strictly positive"
     args.generate_length = min(args.generate_length, 128)
 
     generate(args)
