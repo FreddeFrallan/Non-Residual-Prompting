@@ -165,7 +165,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CITING -->
 ## Citing & Authors
 
-If you find this repository helpful, feel free to cite our publication [Fine-grained controllable text generation via Non-Residual Prompting](https://arxiv.org/abs/1908.10084):
+If you find this repository helpful, feel free to cite our publication [Fine-grained controllable text generation via Non-Residual Prompting](https://aclanthology.org/2022.acl-long.471/):
 
 ```bibtex 
 @inproceedings{carlsson-etal-2022-fine,
