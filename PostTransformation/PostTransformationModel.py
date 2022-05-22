@@ -12,7 +12,6 @@ class PositionalInvariantAddLayer(tf.keras.layers.Layer):
                                               trainable=True)
 
     def call(self, inputs, **kwargs):
-        tf.print(tf.reduce_sum(self.postPastWeight))
         return inputs + self.postPastWeight
 
 
