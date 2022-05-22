@@ -24,7 +24,7 @@
 <p align="center">
   <h1 align="center">Fine-grained controllable text generation via Non-Residual Prompting</h1>
 <p align="center">
-    <a href="https://aclanthology.org/2022.acl-long.471/">Publish</a>
+    <a href="https://aclanthology.org/2022.acl-long.471/">ACL paper</a>
     ·
     <a href="https://huggingface.co/Non-Residual-Prompting">Pre-trained Models </a>
     ·
