@@ -74,7 +74,7 @@ Using non-redisual attention, we keep track of two streams of information in the
 
 
 ### Requirements 
-The packages can be found in the requirements file. The only strong requirement is to use the version  4.8.1 from the transformer package.
+The packages can be found in the requirements file. The only strong requirement is to use the version  **transformers==4.8.1**.
 
 `pip install -r requirements.txt`
 ## Usage
