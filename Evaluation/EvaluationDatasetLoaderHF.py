@@ -11,7 +11,7 @@ def readEvaluationDatasetByName(datasetName, numSamples, customContext):
         contexts = [customContext] * len(conceptSets)
 
     else:  # c2gen
-        dataset = load_dataset('AI-Nordics/C2Gen', split='test')
+        dataset = load_dataset('Non-Residual-Prompting/C2Gen', split='test')
         contexts, conceptSets = dataset['context'][:numSamples], dataset['keywords'][:numSamples]
         contexts = [c if len(c) > 0 else customContext for c in contexts]
 
