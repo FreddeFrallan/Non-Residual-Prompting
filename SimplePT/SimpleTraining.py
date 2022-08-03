@@ -51,4 +51,4 @@ def mainTrainingLoop(device, modelBase='gpt2'):
 
 
 if __name__ == '__main__':
-    mainTrainingLoop('cuda:6')
+    mainTrainingLoop('cuda:0')
