@@ -67,14 +67,14 @@ A short video summary of the work can be found on [Youtube](https://youtu.be/s_r
 Controlling the generative process for large causal language models is at large an unsolved problem. In our approach, we try to move towards a more steerable generation process by enabling high-level prompt instructions at arbitrary time steps.
 
 We introduce a separate language model for the prompt instructions, that generate positionally invariant hidden states. This prompt model is then used to steer the generative model.
-Using non-redisual attention, we keep track of two streams of information in the original generative model. Allow us to steer the generative model without leaving any disruptive footprints in its hidden states.
+Using non-redisual attention, we keep track of two streams of information in the original generative model. This allows us to steer the text generation without leaving any disruptive footprints in the hidden states.
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
 
 ### Requirements 
-The packages can be found in the requirements file. The only strong requirement is to use the version  4.8.1 from the transformer package.
+The packages can be found in the requirements file. The only strong requirement is to use the version  **transformers==4.8.1**.
 
 `pip install -r requirements.txt`
 ## Usage
@@ -89,6 +89,32 @@ using `./inference.sh`. It contains some arguments:
 - **NUM_BEAMS**: The number of beams used within beam search
 
 *The trained model used in the paper will be downloaded automatically from [HuggingFace](https://huggingface.co/Non-Residual-Prompting).*
+
+Here are some example outputs, showing the target words used, followed by the generated texts:
+
+```
+------------ ['magazine', 'read', 'plenty']
+The magazine was read by plenty of people, but it wasn't a hit.
+
+"I don't know why," he said. "It just didn't
+```
+
+```
+------------ ['Sweden', 'summer', 'boat', 'water']
+The boat was used to transport water for the Summer Olympics in Stockholm, Sweden during the 1980s and 1990s.
+
+It is believed to have been built by
+```
+
+```
+------------ ['dog', 'breed', 'brown', 'camping', 'park']
+The park is open to the public for camping, hiking and dog-sledding at Brown's Dog Park. The park also has a brown bear breeding program that
+```
+
+```
+------------ ['king', 'queen', 'wedding', 'castle', 'knight']
+The king and queen were at the castle for a wedding when they heard of their son's death. The King and Queen went to see him, but he was not
+```
 
 ### Evaluation 
 To evaluate texts, use `./evaluate.sh` that takes an input file with a json list of texts as a positional argument.
@@ -136,7 +162,7 @@ Don't forget to give the project a star! Thanks again!
 
 If you have questions regarding the code or otherwise related to this Github page, please open an [issue](https://github.com/FreddeFrallan/Contrastive-Tension/issues).
 
-For other purposes, feel free to contact me directly at: Fredrk.Carlsson@ri.se
+For other purposes, feel free to contact me directly at: Fredrik.Carlsson@ri.se
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
